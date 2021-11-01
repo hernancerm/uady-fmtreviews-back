@@ -2,10 +2,8 @@ package hercerm.uady.fmtreviewsback.controllers;
 
 import hercerm.uady.fmtreviewsback.dtos.ProfessorReviewDto;
 import hercerm.uady.fmtreviewsback.services.ProfessorReviewService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +22,12 @@ public class ProfessorReviewController {
     @GetMapping
     public List<ProfessorReviewDto> getAllByProfessorId(@PathVariable Long professorId) {
         return professorReviewService.getAllByProfessorId(professorId);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProfessorReviewDto createProfessorReview(@PathVariable Long professorId,
+                                                    @RequestBody ProfessorReviewDto professorReviewDto) {
+        return professorReviewService.create(professorId, professorReviewDto);
     }
 }

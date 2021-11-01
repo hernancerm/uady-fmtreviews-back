@@ -12,6 +12,7 @@ import hercerm.uady.fmtreviewsback.services.ProfessorReviewService;
 import hercerm.uady.fmtreviewsback.services.ProfessorScoresService;
 import hercerm.uady.fmtreviewsback.services.ProfessorService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,8 +54,8 @@ public class ProfessorReviewServiceImpl implements ProfessorReviewService {
         return professorReviewRepository.countProfessorReviewsByProfessorId(professorId);
     }
 
-    //TODO : Make transactional
     @Override
+    @Transactional
     public ProfessorReviewDto create(Long professorId, ProfessorReviewDto professorReviewDto) {
         ProfessorReview professorReview = professorReviewMapper.dto2entity(professorReviewDto);
 
