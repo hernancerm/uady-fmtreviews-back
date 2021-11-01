@@ -41,8 +41,13 @@ public class ProfessorMapper implements EntityDtoMapper<Professor, ProfessorDto>
                 .id(professorDto.getId())
                 .firstNames(professorDto.getFirstNames())
                 .lastNames(professorDto.getLastNames())
+
+                // TODO: Make sure this is just the name of a Png image
                 .profileImage(professorDto.getProfileImage())
+
+                // TODO: Calculate the satisfaction score, as it should be empty on the Dto
                 .studentSatisfactionScore(professorDto.getStudentSatisfactionScore())
+
                 .sspExpertiseScore(professorDto.getSspExpertiseScore())
                 .sspExplanationQualityScore(professorDto.getSspExplanationQualityScore())
                 .sspWillingnessToHelpScore(professorDto.getSspWillingnessToHelpScore())
