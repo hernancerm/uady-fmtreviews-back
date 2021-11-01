@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,6 +22,7 @@ public class ProfessorReview {
     @Column(length = 500)
     private String description;
 
+    private Double studentSatisfaction;
     private Integer sspExpertise;
     private Integer sspExplanationQuality;
     private Integer sspWillingnessToHelp;
@@ -30,5 +31,5 @@ public class ProfessorReview {
     private Professor professor;
 
     @ManyToMany
-    private Set<ProfessorCharacteristic> professorCharacteristics;
+    private List<ProfessorCharacteristic> professorCharacteristics;
 }

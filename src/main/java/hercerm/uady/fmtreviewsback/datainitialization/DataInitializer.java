@@ -11,7 +11,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 
 import static hercerm.uady.fmtreviewsback.math.ProfessorScores.populateProfessorScores;
 
@@ -54,6 +53,8 @@ public class DataInitializer implements CommandLineRunner {
         professorCharacteristicRepository.save(characteristic5);
         professorCharacteristicRepository.save(characteristic6);
 
+        // TODO: Populate student satisfaction on reviews
+
         // Professor 1
         Professor professor1 = Professor.builder()
                 .firstNames("Juan")
@@ -64,7 +65,7 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorReview professor1review1 = ProfessorReview.builder()
                 .professor(professor1)
                 .description(StringPlaceholders.LOREM_IPSUM_MEDIUM)
-                .professorCharacteristics(Set.of(characteristic1, characteristic2, characteristic5))
+                .professorCharacteristics(List.of(characteristic1, characteristic2, characteristic5))
                 .sspExpertise(3)
                 .sspExplanationQuality(4)
                 .sspWillingnessToHelp(5)
@@ -73,7 +74,7 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorReview professor1review2 = ProfessorReview.builder()
                 .professor(professor1)
                 .description(StringPlaceholders.LOREM_IPSUM_LONG)
-                .professorCharacteristics(Set.of(characteristic2, characteristic3, characteristic4))
+                .professorCharacteristics(List.of(characteristic2, characteristic3, characteristic4))
                 .sspExpertise(2)
                 .sspExplanationQuality(3)
                 .sspWillingnessToHelp(5)
@@ -82,7 +83,7 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorReview professor1review3 = ProfessorReview.builder()
                 .professor(professor1)
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(Set.of(characteristic5, characteristic6, characteristic1))
+                .professorCharacteristics(List.of(characteristic5, characteristic6, characteristic1))
                 .sspExpertise(4)
                 .sspExplanationQuality(4)
                 .sspWillingnessToHelp(5)
@@ -98,7 +99,7 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorReview professor2review1 = ProfessorReview.builder()
                 .professor(professor2)
                 .description(StringPlaceholders.LOREM_IPSUM_TINY)
-                .professorCharacteristics(Set.of(characteristic2, characteristic3, characteristic6))
+                .professorCharacteristics(List.of(characteristic2, characteristic3, characteristic6))
                 .sspExpertise(2)
                 .sspExplanationQuality(3)
                 .sspWillingnessToHelp(3)
@@ -107,7 +108,7 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorReview professor2review2 = ProfessorReview.builder()
                 .professor(professor2)
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(Set.of(characteristic1, characteristic2, characteristic4))
+                .professorCharacteristics(List.of(characteristic1, characteristic2, characteristic4))
                 .sspExpertise(2)
                 .sspExplanationQuality(3)
                 .sspWillingnessToHelp(4)
@@ -116,7 +117,7 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorReview professor2review3 = ProfessorReview.builder()
                 .professor(professor2)
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(Set.of(characteristic3, characteristic5, characteristic2))
+                .professorCharacteristics(List.of(characteristic3, characteristic5, characteristic2))
                 .sspExpertise(2)
                 .sspExplanationQuality(3)
                 .sspWillingnessToHelp(2)
@@ -130,27 +131,27 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
 
         ProfessorReview professor3review1 = ProfessorReview.builder()
-                .professor(professor2)
+                .professor(professor3)
                 .description(StringPlaceholders.LOREM_IPSUM_TINY)
-                .professorCharacteristics(Set.of(characteristic2, characteristic3, characteristic6))
+                .professorCharacteristics(List.of(characteristic2, characteristic3, characteristic6))
                 .sspExpertise(1)
                 .sspExplanationQuality(2)
                 .sspWillingnessToHelp(3)
                 .build();
 
         ProfessorReview professor3review2 = ProfessorReview.builder()
-                .professor(professor2)
+                .professor(professor3)
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(Set.of(characteristic1, characteristic2, characteristic4))
+                .professorCharacteristics(List.of(characteristic1, characteristic2, characteristic4))
                 .sspExpertise(1)
                 .sspExplanationQuality(1)
                 .sspWillingnessToHelp(2)
                 .build();
 
         ProfessorReview professor3review3 = ProfessorReview.builder()
-                .professor(professor2)
+                .professor(professor3)
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(Set.of(characteristic3, characteristic5, characteristic2))
+                .professorCharacteristics(List.of(characteristic3, characteristic5, characteristic2))
                 .sspExpertise(2)
                 .sspExplanationQuality(2)
                 .sspWillingnessToHelp(3)
