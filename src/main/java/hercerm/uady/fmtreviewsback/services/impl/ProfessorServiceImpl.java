@@ -3,6 +3,7 @@ package hercerm.uady.fmtreviewsback.services.impl;
 import hercerm.uady.fmtreviewsback.config.FsResourcesConfig;
 import hercerm.uady.fmtreviewsback.dtos.ProfessorDto;
 import hercerm.uady.fmtreviewsback.entities.Professor;
+import hercerm.uady.fmtreviewsback.errors.EntityNotFoundException;
 import hercerm.uady.fmtreviewsback.mappers.impl.ProfessorMapper;
 import hercerm.uady.fmtreviewsback.repositories.ProfessorRepository;
 import hercerm.uady.fmtreviewsback.services.ProfessorService;
@@ -18,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO: Throw exceptions for global 404 handling and other Https status codes
 @Service
 public class ProfessorServiceImpl implements ProfessorService {
 
@@ -47,24 +47,25 @@ public class ProfessorServiceImpl implements ProfessorService {
     @Override
     public ProfessorDto getById(Long professorId) {
         return professorRepository.findById(professorId)
-                .map(professorMapper::entity2dto).orElseGet(() -> null);
+                .map(professorMapper::entity2dto)
+                .orElseThrow(() -> new EntityNotFoundException("Professor not found"));
     }
 
     @Override
     public byte[] getProfileImage(Long professorId) throws FileNotFoundException {
-        // TODO: Add proper exception to throw
-        Professor professor = professorRepository.findById(professorId).orElseThrow();
-
-        Path imagePath = Paths.get(fsUserHome, fsResourcesConfig.getRootDir(),
-                fsResourcesConfig.getProfessorImagesPath(), professor.getProfileImage());
-        InputStream inputStream = new FileInputStream(imagePath.toAbsolutePath().toString());
+        Professor professor = professorRepository.findById(professorId)
+                .orElseThrow(() -> new EntityNotFoundException("Professor not found"));
 
         byte[] byteArrayImage;
 
         try {
+            Path imagePath = Paths.get(fsUserHome, fsResourcesConfig.getRootDir(),
+                    fsResourcesConfig.getProfessorImagesPath(), professor.getProfileImage());
+            InputStream inputStream = new FileInputStream(imagePath.toAbsolutePath().toString());
+
             byteArrayImage = IOUtils.toByteArray(inputStream);
-        } catch(IOException e) {
-            throw new FileNotFoundException();
+        } catch (IOException e) {
+            throw new FileNotFoundException("Unexpected error retrieving profile image");
         }
 
         return byteArrayImage;
