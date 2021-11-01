@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProfessorReviewService {
     List<ProfessorReviewDto> getAllByProfessorId(Long professorId);
+    int countReviewsByProfessorId(Long professorId);
+    ProfessorReviewDto create(Long professorId, ProfessorReviewDto professorReviewDto);
 }

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ProfessorReviewRepository extends JpaRepository<ProfessorReview, Long> {
     List<ProfessorReview> findAllByProfessorId(Long professorId);
+    int countProfessorReviewsByProfessorId(Long professorId);
 }

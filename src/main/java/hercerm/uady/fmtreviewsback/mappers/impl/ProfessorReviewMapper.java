@@ -35,15 +35,11 @@ public class ProfessorReviewMapper implements EntityDtoMapper<ProfessorReview, P
     @Override
     public ProfessorReview dto2entity(ProfessorReviewDto professorReviewDto) {
         return ProfessorReview.builder()
-                .id(professorReviewDto.getId())
                 .description(professorReviewDto.getDescription())
 
                 .sspExpertise(professorReviewDto.getSspExpertise())
                 .sspExplanationQuality(professorReviewDto.getSspExplanationQuality())
                 .sspWillingnessToHelp(professorReviewDto.getSspWillingnessToHelp())
-
-                .professorCharacteristics(professorReviewDto.getProfessorCharacteristics().stream()
-                        .map(professorCharacteristicMapper::dto2entity).collect(Collectors.toList()))
                 .build();
     }
 }

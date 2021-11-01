@@ -1,11 +1,9 @@
 package hercerm.uady.fmtreviewsback.dtos;
 
-import hercerm.uady.fmtreviewsback.entities.ProfessorCharacteristic;
 import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
@@ -15,10 +13,14 @@ public class ProfessorReviewDto {
 
     private String description;
 
-    private Double studentSatisfaction;
-    private Integer sspExpertise;
-    private Integer sspExplanationQuality;
-    private Integer sspWillingnessToHelp;
+    @Builder.Default
+    private Double studentSatisfaction = 0.0;
+    @Builder.Default
+    private Integer sspExpertise = 0;
+    @Builder.Default
+    private Integer sspExplanationQuality = 0;
+    @Builder.Default
+    private Integer sspWillingnessToHelp = 0;
 
     private List<ProfessorCharacteristicDto> professorCharacteristics;
 }

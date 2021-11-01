@@ -20,7 +20,6 @@ public class ProfessorCharacteristicMapper
     @Override
     public ProfessorCharacteristic dto2entity(ProfessorCharacteristicDto professorCharacteristicDto) {
         return ProfessorCharacteristic.builder()
-                .id(professorCharacteristicDto.getId())
                 .description(professorCharacteristicDto.getDescription())
                 .build();
     }

@@ -26,8 +26,12 @@ public class Professor {
 
     private String profileImage;
 
-    private Double studentSatisfactionScore;
-    private Double sspExpertiseScore;
-    private Double sspExplanationQualityScore;
-    private Double sspWillingnessToHelpScore;
+    @Builder.Default
+    private Double studentSatisfactionScore = 0.0;
+    @Builder.Default
+    private Double sspExpertiseScore = 0.0;
+    @Builder.Default
+    private Double sspExplanationQualityScore = 0.0;
+    @Builder.Default
+    private Double sspWillingnessToHelpScore = 0.0;
 }

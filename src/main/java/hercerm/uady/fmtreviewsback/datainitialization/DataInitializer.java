@@ -1,180 +1,164 @@
 package hercerm.uady.fmtreviewsback.datainitialization;
 
-import hercerm.uady.fmtreviewsback.entities.Professor;
+import hercerm.uady.fmtreviewsback.dtos.ProfessorCharacteristicDto;
+import hercerm.uady.fmtreviewsback.dtos.ProfessorDto;
+import hercerm.uady.fmtreviewsback.dtos.ProfessorReviewDto;
 import hercerm.uady.fmtreviewsback.entities.ProfessorCharacteristic;
-import hercerm.uady.fmtreviewsback.entities.ProfessorReview;
-import hercerm.uady.fmtreviewsback.repositories.ProfessorCharacteristicRepository;
-import hercerm.uady.fmtreviewsback.repositories.ProfessorRepository;
-import hercerm.uady.fmtreviewsback.repositories.ProfessorReviewRepository;
+import hercerm.uady.fmtreviewsback.services.ProfessorCharacteristicService;
+import hercerm.uady.fmtreviewsback.services.ProfessorReviewService;
+import hercerm.uady.fmtreviewsback.services.ProfessorService;
 import hercerm.uady.fmtreviewsback.utils.StringPlaceholders;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static hercerm.uady.fmtreviewsback.math.ProfessorScores.populateProfessorScores;
-
 @Component
 public class DataInitializer implements CommandLineRunner {
 
-    private final ProfessorRepository professorRepository;
-    private final ProfessorReviewRepository professorReviewRepository;
-    private final ProfessorCharacteristicRepository professorCharacteristicRepository;
+    private final ProfessorService professorService;
+    private final ProfessorReviewService professorReviewService;
+    private final ProfessorCharacteristicService professorCharacteristicService;
 
-    public DataInitializer(ProfessorRepository professorRepository,
-                           ProfessorReviewRepository professorReviewRepository,
-                           ProfessorCharacteristicRepository professorCharacteristicRepository) {
-        this.professorRepository = professorRepository;
-        this.professorReviewRepository = professorReviewRepository;
-        this.professorCharacteristicRepository = professorCharacteristicRepository;
+    public DataInitializer(ProfessorService professorService,
+                           ProfessorReviewService professorReviewService,
+                           ProfessorCharacteristicService professorCharacteristicService) {
+        this.professorService = professorService;
+        this.professorReviewService = professorReviewService;
+        this.professorCharacteristicService = professorCharacteristicService;
     }
 
     @Override
     public void run(String... args) throws Exception {
 
         // Professor characteristics
-        ProfessorCharacteristic characteristic1 = new ProfessorCharacteristic(
+        ProfessorCharacteristicDto characteristic1 = new ProfessorCharacteristicDto(
                 ProfessorCharacteristic.INTERESTED_IN_SUBJECT);
-        ProfessorCharacteristic characteristic2 = new ProfessorCharacteristic(
+        ProfessorCharacteristicDto characteristic2 = new ProfessorCharacteristicDto(
                 ProfessorCharacteristic.REQUIRES_ENGLISH);
-        ProfessorCharacteristic characteristic3 = new ProfessorCharacteristic(
+        ProfessorCharacteristicDto characteristic3 = new ProfessorCharacteristicDto(
                 ProfessorCharacteristic.GRADES_TRANSPARENTLY);
-        ProfessorCharacteristic characteristic4 = new ProfessorCharacteristic(
+        ProfessorCharacteristicDto characteristic4 = new ProfessorCharacteristicDto(
                 ProfessorCharacteristic.TEACHES_MOST_CLASSES);
-        ProfessorCharacteristic characteristic5 = new ProfessorCharacteristic(
+        ProfessorCharacteristicDto characteristic5 = new ProfessorCharacteristicDto(
                 ProfessorCharacteristic.Provides_USEFUL_RESOURCES);
-        ProfessorCharacteristic characteristic6 = new ProfessorCharacteristic(
+        ProfessorCharacteristicDto characteristic6 = new ProfessorCharacteristicDto(
                 ProfessorCharacteristic.TIMELINESS_REQUIRED);
 
-        professorCharacteristicRepository.save(characteristic1);
-        professorCharacteristicRepository.save(characteristic2);
-        professorCharacteristicRepository.save(characteristic3);
-        professorCharacteristicRepository.save(characteristic4);
-        professorCharacteristicRepository.save(characteristic5);
-        professorCharacteristicRepository.save(characteristic6);
-
-        // TODO: Populate student satisfaction on reviews
+        ProfessorCharacteristicDto savedCharacteristic1 = professorCharacteristicService.create(characteristic1);
+        ProfessorCharacteristicDto savedCharacteristic2 = professorCharacteristicService.create(characteristic2);
+        ProfessorCharacteristicDto savedCharacteristic3 = professorCharacteristicService.create(characteristic3);
+        ProfessorCharacteristicDto savedCharacteristic4 = professorCharacteristicService.create(characteristic4);
+        ProfessorCharacteristicDto savedCharacteristic5 = professorCharacteristicService.create(characteristic5);
+        ProfessorCharacteristicDto savedCharacteristic6 = professorCharacteristicService.create(characteristic6);
 
         // Professor 1
-        Professor professor1 = Professor.builder()
+        ProfessorDto professor1 = ProfessorDto.builder()
                 .firstNames("Juan")
                 .lastNames("García")
                 .profileImage("profile_image__juan_garcia.png")
                 .build();
 
-        ProfessorReview professor1review1 = ProfessorReview.builder()
-                .professor(professor1)
+        ProfessorReviewDto professor1review1 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_MEDIUM)
-                .professorCharacteristics(List.of(characteristic1, characteristic2, characteristic5))
+                .professorCharacteristics(List.of(savedCharacteristic1, savedCharacteristic2, savedCharacteristic5))
                 .sspExpertise(3)
                 .sspExplanationQuality(4)
                 .sspWillingnessToHelp(5)
                 .build();
 
-        ProfessorReview professor1review2 = ProfessorReview.builder()
-                .professor(professor1)
+        ProfessorReviewDto professor1review2 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_LONG)
-                .professorCharacteristics(List.of(characteristic2, characteristic3, characteristic4))
+                .professorCharacteristics(List.of(savedCharacteristic2, savedCharacteristic3, savedCharacteristic4))
                 .sspExpertise(2)
                 .sspExplanationQuality(3)
                 .sspWillingnessToHelp(5)
                 .build();
 
-        ProfessorReview professor1review3 = ProfessorReview.builder()
-                .professor(professor1)
+        ProfessorReviewDto professor1review3 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(List.of(characteristic5, characteristic6, characteristic1))
+                .professorCharacteristics(List.of(savedCharacteristic5, savedCharacteristic6, savedCharacteristic1))
                 .sspExpertise(4)
                 .sspExplanationQuality(4)
                 .sspWillingnessToHelp(5)
                 .build();
 
         // Professor 2
-        Professor professor2 = Professor.builder()
+        ProfessorDto professor2 = ProfessorDto.builder()
                 .firstNames("María")
                 .lastNames("Ayala")
                 .profileImage("profile_image__maria_ayala.png")
                 .build();
 
-        ProfessorReview professor2review1 = ProfessorReview.builder()
-                .professor(professor2)
+        ProfessorReviewDto professor2review1 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_TINY)
-                .professorCharacteristics(List.of(characteristic2, characteristic3, characteristic6))
+                .professorCharacteristics(List.of(savedCharacteristic2, savedCharacteristic3, savedCharacteristic6))
                 .sspExpertise(2)
                 .sspExplanationQuality(3)
                 .sspWillingnessToHelp(3)
                 .build();
 
-        ProfessorReview professor2review2 = ProfessorReview.builder()
-                .professor(professor2)
+        ProfessorReviewDto professor2review2 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(List.of(characteristic1, characteristic2, characteristic4))
+                .professorCharacteristics(List.of(savedCharacteristic1, savedCharacteristic2, savedCharacteristic4))
                 .sspExpertise(2)
                 .sspExplanationQuality(3)
                 .sspWillingnessToHelp(4)
                 .build();
 
-        ProfessorReview professor2review3 = ProfessorReview.builder()
-                .professor(professor2)
+        ProfessorReviewDto professor2review3 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(List.of(characteristic3, characteristic5, characteristic2))
+                .professorCharacteristics(List.of(savedCharacteristic3, savedCharacteristic5, savedCharacteristic2))
                 .sspExpertise(2)
                 .sspExplanationQuality(3)
                 .sspWillingnessToHelp(2)
                 .build();
 
         // Professor 3
-        Professor professor3 = Professor.builder()
+        ProfessorDto professor3 = ProfessorDto.builder()
                 .firstNames("Josué")
                 .lastNames("Suárez")
                 .profileImage("profile_image__josue_suarez.png")
                 .build();
 
-        ProfessorReview professor3review1 = ProfessorReview.builder()
-                .professor(professor3)
+        ProfessorReviewDto professor3review1 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_TINY)
-                .professorCharacteristics(List.of(characteristic2, characteristic3, characteristic6))
+                .professorCharacteristics(List.of(savedCharacteristic2, savedCharacteristic3, savedCharacteristic6))
                 .sspExpertise(1)
                 .sspExplanationQuality(2)
                 .sspWillingnessToHelp(3)
                 .build();
 
-        ProfessorReview professor3review2 = ProfessorReview.builder()
-                .professor(professor3)
+        ProfessorReviewDto professor3review2 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(List.of(characteristic1, characteristic2, characteristic4))
+                .professorCharacteristics(List.of(savedCharacteristic1, savedCharacteristic2, savedCharacteristic4))
                 .sspExpertise(1)
                 .sspExplanationQuality(1)
                 .sspWillingnessToHelp(2)
                 .build();
 
-        ProfessorReview professor3review3 = ProfessorReview.builder()
-                .professor(professor3)
+        ProfessorReviewDto professor3review3 = ProfessorReviewDto.builder()
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
-                .professorCharacteristics(List.of(characteristic3, characteristic5, characteristic2))
+                .professorCharacteristics(List.of(savedCharacteristic3, savedCharacteristic5, savedCharacteristic2))
                 .sspExpertise(2)
                 .sspExplanationQuality(2)
                 .sspWillingnessToHelp(3)
                 .build();
 
-        populateProfessorScores(professor1, List.of(professor1review1, professor1review2, professor1review3));
-        populateProfessorScores(professor2, List.of(professor2review1, professor2review2, professor2review3));
-        populateProfessorScores(professor3, List.of(professor3review1, professor3review2, professor3review3));
+        ProfessorDto savedProfessor1 = professorService.create(professor1);
+        ProfessorDto savedProfessor2 = professorService.create(professor2);
+        ProfessorDto savedProfessor3 = professorService.create(professor3);
 
-        professorRepository.save(professor1);
-        professorRepository.save(professor2);
-        professorRepository.save(professor3);
+        professorReviewService.create(savedProfessor1.getId(), professor1review1);
+        professorReviewService.create(savedProfessor1.getId(), professor1review2);
+        professorReviewService.create(savedProfessor1.getId(), professor1review3);
 
-        professorReviewRepository.save(professor1review1);
-        professorReviewRepository.save(professor1review2);
-        professorReviewRepository.save(professor1review3);
+        professorReviewService.create(savedProfessor2.getId(), professor2review1);
+        professorReviewService.create(savedProfessor2.getId(), professor2review2);
+        professorReviewService.create(savedProfessor2.getId(), professor2review3);
 
-        professorReviewRepository.save(professor2review1);
-        professorReviewRepository.save(professor2review2);
-        professorReviewRepository.save(professor2review3);
-
-        professorReviewRepository.save(professor3review1);
-        professorReviewRepository.save(professor3review2);
-        professorReviewRepository.save(professor3review3);
+        professorReviewService.create(savedProfessor3.getId(), professor3review1);
+        professorReviewService.create(savedProfessor3.getId(), professor3review2);
+        professorReviewService.create(savedProfessor3.getId(), professor3review3);
     }
 }

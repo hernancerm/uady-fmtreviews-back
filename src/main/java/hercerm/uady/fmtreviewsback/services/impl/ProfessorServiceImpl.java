@@ -7,6 +7,7 @@ import hercerm.uady.fmtreviewsback.errors.EntityNotFoundException;
 import hercerm.uady.fmtreviewsback.mappers.impl.ProfessorMapper;
 import hercerm.uady.fmtreviewsback.repositories.ProfessorRepository;
 import hercerm.uady.fmtreviewsback.services.ProfessorService;
+import hercerm.uady.fmtreviewsback.utils.BeanUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +70,28 @@ public class ProfessorServiceImpl implements ProfessorService {
         }
 
         return byteArrayImage;
+    }
+
+    @Override
+    public ProfessorDto update(ProfessorDto professorDto) {
+        Professor fetchedProfessor = professorRepository.findById(professorDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+
+        BeanUtils.copyProperties(professorDto, fetchedProfessor);
+
+        // TODO: Validate professor before saving
+
+        Professor updatedProfessor = professorRepository.save(fetchedProfessor);
+        return professorMapper.entity2dto(updatedProfessor);
+    }
+
+    @Override
+    public ProfessorDto create(ProfessorDto professorDto) {
+        Professor mappedProfessor = professorMapper.dto2entity(professorDto);
+
+        // TODO: Validate professor before saving
+
+        Professor savedProfessor = professorRepository.save(mappedProfessor);
+        return professorMapper.entity2dto(savedProfessor);
     }
 }

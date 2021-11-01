@@ -12,10 +12,14 @@ public class ProfessorDto {
     private String firstNames;
     private String lastNames;
 
-    private String profileImage;
+    private String profileImage; // TODO: Remove attribute and attach image via service method
 
-    private Double studentSatisfactionScore;
-    private Double sspExpertiseScore;
-    private Double sspExplanationQualityScore;
-    private Double sspWillingnessToHelpScore;
+    @Builder.Default
+    private Double studentSatisfactionScore = 0.0;
+    @Builder.Default
+    private Double sspExpertiseScore = 0.0;
+    @Builder.Default
+    private Double sspExplanationQualityScore = 0.0;
+    @Builder.Default
+    private Double sspWillingnessToHelpScore = 0.0;
 }
