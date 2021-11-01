@@ -158,7 +158,7 @@ public class DataInitializer implements CommandLineRunner {
 
         populateProfessorScores(professor1, List.of(professor1review1, professor1review2, professor1review3));
         populateProfessorScores(professor2, List.of(professor2review1, professor2review2, professor2review3));
-        populateProfessorScores(professor2, List.of(professor3review1, professor3review2, professor3review3));
+        populateProfessorScores(professor3, List.of(professor3review1, professor3review2, professor3review3));
 
         professorRepository.save(professor1);
         professorRepository.save(professor2);

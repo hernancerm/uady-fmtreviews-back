@@ -12,3 +12,15 @@ spring:
     console:
       enabled: true
       path: /console
+
+server:
+  port: 8080
+
+
+######################
+# Custom configuration
+######################
+
+fs-resources:
+  root: fmt_reviews # Considered at user root (~)
+  professors-profile-images: /professors/profile_images
