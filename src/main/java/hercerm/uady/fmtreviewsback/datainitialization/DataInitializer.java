@@ -56,7 +56,6 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorDto professor1 = ProfessorDto.builder()
                 .firstNames("Juan")
                 .lastNames("García")
-                .profileImage("profile_image__juan_garcia.png")
                 .build();
 
         ProfessorReviewDto professor1review1 = ProfessorReviewDto.builder()
@@ -87,7 +86,6 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorDto professor2 = ProfessorDto.builder()
                 .firstNames("María")
                 .lastNames("Ayala")
-                .profileImage("profile_image__maria_ayala.png")
                 .build();
 
         ProfessorReviewDto professor2review1 = ProfessorReviewDto.builder()
@@ -118,7 +116,6 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorDto professor3 = ProfessorDto.builder()
                 .firstNames("Josué")
                 .lastNames("Suárez")
-                .profileImage("profile_image__josue_suarez.png")
                 .build();
 
         ProfessorReviewDto professor3review1 = ProfessorReviewDto.builder()
@@ -145,10 +142,20 @@ public class DataInitializer implements CommandLineRunner {
                 .sspWillingnessToHelp(3)
                 .build();
 
+
+        /* Persist */
+
+        // Professors
         ProfessorDto savedProfessor1 = professorService.create(professor1);
         ProfessorDto savedProfessor2 = professorService.create(professor2);
         ProfessorDto savedProfessor3 = professorService.create(professor3);
 
+        // Profile images
+        professorService.saveProfileImage(savedProfessor1.getId(), new byte[0]);
+        professorService.saveProfileImage(savedProfessor2.getId(), new byte[0]);
+        professorService.saveProfileImage(savedProfessor3.getId(), new byte[0]);
+
+        // Reviews
         professorReviewService.create(savedProfessor1.getId(), professor1review1);
         professorReviewService.create(savedProfessor1.getId(), professor1review2);
         professorReviewService.create(savedProfessor1.getId(), professor1review3);

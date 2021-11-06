@@ -9,6 +9,7 @@ import hercerm.uady.fmtreviewsback.repositories.ProfessorRepository;
 import hercerm.uady.fmtreviewsback.services.ProfessorService;
 import hercerm.uady.fmtreviewsback.utils.BeanUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -93,5 +94,22 @@ public class ProfessorServiceImpl implements ProfessorService {
 
         Professor savedProfessor = professorRepository.save(mappedProfessor);
         return professorMapper.entity2dto(savedProfessor);
+    }
+
+    @Override
+    public void saveProfileImage(Long professorId, byte[] profileImage) {
+        Professor fetchedProfessor = professorRepository.findById(professorId)
+                .orElseThrow(() -> new EntityNotFoundException("Professor not found"));
+
+        String filenamePrefix = "profile_image";
+        String filenameDiscriminator = String.format("%s_%s", // TODO: Add professor ID.
+                StringUtils.stripAccents(fetchedProfessor.getFirstNames()).toLowerCase(),
+                StringUtils.stripAccents(fetchedProfessor.getLastNames()).toLowerCase());
+        String filename = String.format("%s__%s.png", filenamePrefix, filenameDiscriminator);
+
+        // TODO: Implement image saving with proper filename.
+
+        fetchedProfessor.setProfileImage(filename);
+        professorRepository.save(fetchedProfessor);
     }
 }

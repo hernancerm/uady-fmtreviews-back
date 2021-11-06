@@ -28,8 +28,6 @@ public class ProfessorMapper implements EntityDtoMapper<Professor, ProfessorDto>
                 .firstNames(professorDto.getFirstNames())
                 .lastNames(professorDto.getLastNames())
 
-                .profileImage(professorDto.getProfileImage())
-
                 .sspExpertiseScore(professorDto.getSspExpertiseScore())
                 .sspExplanationQualityScore(professorDto.getSspExplanationQualityScore())
                 .sspWillingnessToHelpScore(professorDto.getSspWillingnessToHelpScore())

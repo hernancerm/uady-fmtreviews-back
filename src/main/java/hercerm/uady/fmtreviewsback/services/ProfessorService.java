@@ -23,4 +23,6 @@ public interface ProfessorService {
     ProfessorDto update(ProfessorDto professorDto);
 
     ProfessorDto create(ProfessorDto professorDto);
+
+    void saveProfileImage(Long professorId, byte[] profileImage);
 }
