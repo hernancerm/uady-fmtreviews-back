@@ -8,5 +8,5 @@ import java.util.List;
 public interface ProfessorCharacteristicService {
     List<ProfessorCharacteristicDto> getAll();
     ProfessorCharacteristicDto create(ProfessorCharacteristicDto professorCharacteristicDto);
-    List<ProfessorCharacteristic> mapProfessorCharacteristicDtosToSavedEntities(List<ProfessorCharacteristicDto> professorCharacteristicDtos);
+    List<ProfessorCharacteristic> mapDtosToSavedEntities(List<ProfessorCharacteristicDto> professorCharacteristicDtos);
 }

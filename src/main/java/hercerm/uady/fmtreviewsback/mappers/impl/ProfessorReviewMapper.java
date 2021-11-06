@@ -11,9 +11,12 @@ import java.util.stream.Collectors;
 public class ProfessorReviewMapper implements EntityDtoMapper<ProfessorReview, ProfessorReviewDto> {
 
     private final ProfessorCharacteristicMapper professorCharacteristicMapper;
+    private final StudentSatisfactionParameterPointedMapper studentSatisfactionParameterPointedMapper;
 
-    public ProfessorReviewMapper(ProfessorCharacteristicMapper professorCharacteristicMapper) {
+    public ProfessorReviewMapper(ProfessorCharacteristicMapper professorCharacteristicMapper,
+                                 StudentSatisfactionParameterPointedMapper studentSatisfactionParameterPointedMapper) {
         this.professorCharacteristicMapper = professorCharacteristicMapper;
+        this.studentSatisfactionParameterPointedMapper = studentSatisfactionParameterPointedMapper;
     }
 
     @Override
@@ -22,10 +25,10 @@ public class ProfessorReviewMapper implements EntityDtoMapper<ProfessorReview, P
                 .id(professorReview.getId())
                 .description(professorReview.getDescription())
 
-                .studentSatisfaction(professorReview.getStudentSatisfaction())
-                .sspExpertise(professorReview.getSspExpertise())
-                .sspExplanationQuality(professorReview.getSspExplanationQuality())
-                .sspWillingnessToHelp(professorReview.getSspWillingnessToHelp())
+                .studentSatisfactionGrade(professorReview.getStudentSatisfactionGrade())
+
+                .studentSatisfactionGrades(professorReview.getStudentSatisfactionGrades().stream()
+                        .map(studentSatisfactionParameterPointedMapper::entity2dto).collect(Collectors.toList()))
 
                 .professorCharacteristics(professorReview.getProfessorCharacteristics().stream()
                         .map(professorCharacteristicMapper::entity2dto).collect(Collectors.toList()))
@@ -36,10 +39,6 @@ public class ProfessorReviewMapper implements EntityDtoMapper<ProfessorReview, P
     public ProfessorReview dto2entity(ProfessorReviewDto professorReviewDto) {
         return ProfessorReview.builder()
                 .description(professorReviewDto.getDescription())
-
-                .sspExpertise(professorReviewDto.getSspExpertise())
-                .sspExplanationQuality(professorReviewDto.getSspExplanationQuality())
-                .sspWillingnessToHelp(professorReviewDto.getSspWillingnessToHelp())
                 .build();
     }
 }

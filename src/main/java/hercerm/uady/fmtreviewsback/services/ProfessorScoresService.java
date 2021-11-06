@@ -13,5 +13,7 @@ import hercerm.uady.fmtreviewsback.entities.ProfessorReview;
  */
 public interface ProfessorScoresService {
     double computeReviewStudentSatisfaction(ProfessorReviewDto professorReviewDto);
+
+    // TODO: Add JavaDoc
     void populateProfessorScoresOnNewReview(ProfessorDto professorDto, ProfessorReviewDto professorReviewDto);
 }

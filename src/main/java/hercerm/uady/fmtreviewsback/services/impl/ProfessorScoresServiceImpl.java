@@ -2,11 +2,16 @@ package hercerm.uady.fmtreviewsback.services.impl;
 
 import hercerm.uady.fmtreviewsback.dtos.ProfessorDto;
 import hercerm.uady.fmtreviewsback.dtos.ProfessorReviewDto;
+import hercerm.uady.fmtreviewsback.dtos.StudentSatisfactionParameterPointedDto;
 import hercerm.uady.fmtreviewsback.math.MathUtils;
 import hercerm.uady.fmtreviewsback.services.ProfessorReviewService;
 import hercerm.uady.fmtreviewsback.services.ProfessorScoresService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ProfessorScoresServiceImpl implements ProfessorScoresService {
@@ -19,9 +24,12 @@ public class ProfessorScoresServiceImpl implements ProfessorScoresService {
 
     @Override
     public double computeReviewStudentSatisfaction(ProfessorReviewDto professorReviewDto) {
-        return (professorReviewDto.getSspExpertise() +
-                professorReviewDto.getSspExplanationQuality() +
-                professorReviewDto.getSspWillingnessToHelp()) / 3.0;
+        List<StudentSatisfactionParameterPointedDto> studentSatisfactionGrades =
+                professorReviewDto.getStudentSatisfactionGrades();
+
+        return studentSatisfactionGrades.stream()
+                .mapToDouble(StudentSatisfactionParameterPointedDto::getPoints)
+                .sum() / studentSatisfactionGrades.size();
     }
 
     @Override
@@ -29,16 +37,21 @@ public class ProfessorScoresServiceImpl implements ProfessorScoresService {
         int amountOfReviews = professorReviewService.countReviewsByProfessorId(professorDto.getId());
 
         professorDto.setStudentSatisfactionScore(MathUtils.computeMeanProvidedNewValue(
-                professorDto.getStudentSatisfactionScore(), amountOfReviews, professorReviewDto.getStudentSatisfaction())
+                professorDto.getStudentSatisfactionScore(), amountOfReviews, professorReviewDto.getStudentSatisfactionGrade())
         );
-        professorDto.setSspExpertiseScore(MathUtils.computeMeanProvidedNewValue(
-                professorDto.getSspExpertiseScore(), amountOfReviews, professorReviewDto.getSspExpertise())
-        );
-        professorDto.setSspExplanationQualityScore(MathUtils.computeMeanProvidedNewValue(
-                professorDto.getSspExplanationQualityScore(), amountOfReviews, professorReviewDto.getSspExplanationQuality())
-        );
-        professorDto.setSspWillingnessToHelpScore(MathUtils.computeMeanProvidedNewValue(
-                professorDto.getSspWillingnessToHelpScore(), amountOfReviews, professorReviewDto.getSspWillingnessToHelp())
+
+        // Key: StudentSatisfactionParameter ID / Value: StudentSatisfactionParameterPointed POINTS.
+        Map<Long, Double> reviewParameterGrades = professorReviewDto.getStudentSatisfactionGrades().stream()
+                        .collect(Collectors.toMap(
+                                parameterGrade -> parameterGrade.getStudentSatisfactionParameter().getId(),
+                                StudentSatisfactionParameterPointedDto::getPoints
+                        ));
+
+        professorDto.getStudentSatisfactionScores().forEach(
+                parameterScore -> parameterScore.setPoints(MathUtils.computeMeanProvidedNewValue(
+                        parameterScore.getPoints(), amountOfReviews,
+                        reviewParameterGrades.get(parameterScore.getStudentSatisfactionParameter().getId())
+                ))
         );
     }
 }

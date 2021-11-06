@@ -5,8 +5,17 @@ import hercerm.uady.fmtreviewsback.entities.Professor;
 import hercerm.uady.fmtreviewsback.mappers.EntityDtoMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 @Component
 public class ProfessorMapper implements EntityDtoMapper<Professor, ProfessorDto> {
+
+    private final StudentSatisfactionParameterPointedMapper studentSatisfactionParameterPointedMapper;
+
+    public ProfessorMapper(StudentSatisfactionParameterPointedMapper studentSatisfactionParameterPointedMapper) {
+        this.studentSatisfactionParameterPointedMapper = studentSatisfactionParameterPointedMapper;
+    }
+
     @Override
     public ProfessorDto entity2dto(Professor professor) {
         return ProfessorDto.builder()
@@ -14,11 +23,10 @@ public class ProfessorMapper implements EntityDtoMapper<Professor, ProfessorDto>
 
                 .firstNames(professor.getFirstNames())
                 .lastNames(professor.getLastNames())
-
                 .studentSatisfactionScore(professor.getStudentSatisfactionScore())
-                .sspExpertiseScore(professor.getSspExpertiseScore())
-                .sspExplanationQualityScore(professor.getSspExplanationQualityScore())
-                .sspWillingnessToHelpScore(professor.getSspWillingnessToHelpScore())
+
+                .studentSatisfactionScores(professor.getStudentSatisfactionScores().stream()
+                        .map(studentSatisfactionParameterPointedMapper::entity2dto).collect(Collectors.toList()))
                 .build();
     }
 
@@ -28,9 +36,6 @@ public class ProfessorMapper implements EntityDtoMapper<Professor, ProfessorDto>
                 .firstNames(professorDto.getFirstNames())
                 .lastNames(professorDto.getLastNames())
 
-                .sspExpertiseScore(professorDto.getSspExpertiseScore())
-                .sspExplanationQualityScore(professorDto.getSspExplanationQualityScore())
-                .sspWillingnessToHelpScore(professorDto.getSspWillingnessToHelpScore())
                 .build();
     }
 }

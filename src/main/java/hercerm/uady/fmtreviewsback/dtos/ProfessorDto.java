@@ -3,6 +3,8 @@ package hercerm.uady.fmtreviewsback.dtos;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Builder
 public class ProfessorDto {
@@ -14,10 +16,6 @@ public class ProfessorDto {
 
     @Builder.Default
     private Double studentSatisfactionScore = 0.0;
-    @Builder.Default
-    private Double sspExpertiseScore = 0.0;
-    @Builder.Default
-    private Double sspExplanationQualityScore = 0.0;
-    @Builder.Default
-    private Double sspWillingnessToHelpScore = 0.0;
+
+    private List<StudentSatisfactionParameterPointedDto> studentSatisfactionScores;
 }

@@ -5,10 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -28,10 +26,7 @@ public class Professor {
 
     @Builder.Default
     private Double studentSatisfactionScore = 0.0;
-    @Builder.Default
-    private Double sspExpertiseScore = 0.0;
-    @Builder.Default
-    private Double sspExplanationQualityScore = 0.0;
-    @Builder.Default
-    private Double sspWillingnessToHelpScore = 0.0;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    List<StudentSatisfactionParameterPointed> studentSatisfactionScores;
 }

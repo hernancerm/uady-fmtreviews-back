@@ -23,13 +23,10 @@ public class ProfessorReview {
     private String description;
 
     @Builder.Default
-    private Double studentSatisfaction = 0.0;
-    @Builder.Default
-    private Integer sspExpertise = 0;
-    @Builder.Default
-    private Integer sspExplanationQuality = 0;
-    @Builder.Default
-    private Integer sspWillingnessToHelp = 0;
+    private Double studentSatisfactionGrade = 0.0;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    List<StudentSatisfactionParameterPointed> studentSatisfactionGrades;
 
     @ManyToOne
     private Professor professor;

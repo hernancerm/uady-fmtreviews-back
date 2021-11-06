@@ -14,13 +14,9 @@ public class ProfessorReviewDto {
     private String description;
 
     @Builder.Default
-    private Double studentSatisfaction = 0.0;
-    @Builder.Default
-    private Integer sspExpertise = 0;
-    @Builder.Default
-    private Integer sspExplanationQuality = 0;
-    @Builder.Default
-    private Integer sspWillingnessToHelp = 0;
+    private Double studentSatisfactionGrade = 0.0;
+
+    private List<StudentSatisfactionParameterPointedDto> studentSatisfactionGrades;
 
     private List<ProfessorCharacteristicDto> professorCharacteristics;
 }

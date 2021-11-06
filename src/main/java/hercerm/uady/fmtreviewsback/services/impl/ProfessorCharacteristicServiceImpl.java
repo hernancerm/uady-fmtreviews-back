@@ -43,7 +43,7 @@ public class ProfessorCharacteristicServiceImpl implements ProfessorCharacterist
     }
 
     @Override
-    public List<ProfessorCharacteristic> mapProfessorCharacteristicDtosToSavedEntities(
+    public List<ProfessorCharacteristic> mapDtosToSavedEntities(
             List<ProfessorCharacteristicDto> professorCharacteristicDtos) {
 
         return professorCharacteristicDtos.stream()
