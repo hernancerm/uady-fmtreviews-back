@@ -1,5 +1,7 @@
 # API Specification
 
+TODO: Actualizar diseño a impl presente (refactor de StudentSatisfactionParameters)
+
 <!-- TOC -->
 
 - [Endpoints](#endpoints)
@@ -255,3 +257,5 @@ Example:
 - `GET /api/professors/{id}/reviews`
 - `POST /api/professors/{id}/reviews`
 - `GET /api/professors/characteristics`
+
+TODO: Agregar endpoint de student-satisfaction-parameters
