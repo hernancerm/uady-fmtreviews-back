@@ -2,8 +2,6 @@ package hercerm.uady.fmtreviewsback.services.impl;
 
 import hercerm.uady.fmtreviewsback.config.FsResourcesConfig;
 import hercerm.uady.fmtreviewsback.dtos.ProfessorDto;
-import hercerm.uady.fmtreviewsback.dtos.StudentSatisfactionParameterDto;
-import hercerm.uady.fmtreviewsback.dtos.StudentSatisfactionParameterPointedDto;
 import hercerm.uady.fmtreviewsback.entities.Professor;
 import hercerm.uady.fmtreviewsback.entities.StudentSatisfactionParameter;
 import hercerm.uady.fmtreviewsback.entities.StudentSatisfactionParameterPointed;

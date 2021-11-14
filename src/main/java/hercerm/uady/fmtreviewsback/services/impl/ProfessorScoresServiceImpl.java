@@ -50,6 +50,10 @@ public class ProfessorScoresServiceImpl implements ProfessorScoresService {
         professorDto.getStudentSatisfactionScores().forEach(
                 parameterScore -> parameterScore.setPoints(MathUtils.computeMeanProvidedNewValue(
                         parameterScore.getPoints(), amountOfReviews,
+
+                        // This line raises a NullPointerException when the studentSatisfactionParameter id
+                        // from the professorReviewDto is non-existent in the DB. With Dto validation this
+                        // exception should not be raised.
                         reviewParameterGrades.get(parameterScore.getStudentSatisfactionParameter().getId())
                 ))
         );

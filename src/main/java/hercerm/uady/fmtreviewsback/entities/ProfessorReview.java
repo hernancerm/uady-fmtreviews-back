@@ -6,6 +6,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -20,17 +25,22 @@ public class ProfessorReview {
     private Long id;
 
     @Column(length = 500)
+    @NotBlank
+    @Size(min = 1, max = 500)
     private String description;
 
     @Builder.Default
+    @Min(0)
+    @Max(5)
     private Double studentSatisfactionGrade = 0.0;
 
     @OneToMany(cascade = CascadeType.ALL)
-    List<StudentSatisfactionParameterPointed> studentSatisfactionGrades;
+    List<@Valid StudentSatisfactionParameterPointed> studentSatisfactionGrades;
 
     @ManyToOne
+    @Valid
     private Professor professor;
 
     @ManyToMany
-    private List<ProfessorCharacteristic> professorCharacteristics;
+    private List<@Valid ProfessorCharacteristic> professorCharacteristics;
 }

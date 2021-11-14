@@ -28,6 +28,10 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
+    // Validation
+    implementation 'org.apache.bval:bval-jsr:2.0.5'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+
     // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
