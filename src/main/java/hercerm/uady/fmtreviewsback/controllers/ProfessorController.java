@@ -28,7 +28,6 @@ public class ProfessorController {
         return professorService.getAll();
     }
 
-
     @GetMapping("/{professorId}")
     public ProfessorDto getProfessorById(@PathVariable Long professorId) {
         return professorService.getById(professorId);
