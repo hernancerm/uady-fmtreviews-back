@@ -3,10 +3,7 @@ package hercerm.uady.fmtreviewsback.datainitialization;
 import hercerm.uady.fmtreviewsback.dtos.*;
 import hercerm.uady.fmtreviewsback.entities.ProfessorCharacteristic;
 import hercerm.uady.fmtreviewsback.entities.StudentSatisfactionParameter;
-import hercerm.uady.fmtreviewsback.services.ProfessorCharacteristicService;
-import hercerm.uady.fmtreviewsback.services.ProfessorReviewService;
-import hercerm.uady.fmtreviewsback.services.ProfessorService;
-import hercerm.uady.fmtreviewsback.services.StudentSatisfactionParameterService;
+import hercerm.uady.fmtreviewsback.services.*;
 import hercerm.uady.fmtreviewsback.utils.StringPlaceholders;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -21,14 +18,18 @@ public class DataInitializer implements CommandLineRunner {
     private final ProfessorCharacteristicService professorCharacteristicService;
     private final StudentSatisfactionParameterService studentSatisfactionParameterService;
 
+    private final CourseService courseService;
+
     public DataInitializer(ProfessorService professorService,
                            ProfessorReviewService professorReviewService,
                            ProfessorCharacteristicService professorCharacteristicService,
-                           StudentSatisfactionParameterService studentSatisfactionParameterService) {
+                           StudentSatisfactionParameterService studentSatisfactionParameterService,
+                           CourseService courseService) {
         this.professorService = professorService;
         this.professorReviewService = professorReviewService;
         this.professorCharacteristicService = professorCharacteristicService;
         this.studentSatisfactionParameterService = studentSatisfactionParameterService;
+        this.courseService = courseService;
     }
 
     @Override
@@ -179,7 +180,7 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
 
 
-        /* Persist - what hasn't been persisted yet */
+        /* Persist professor data - what hasn't been persisted yet */
 
         // Professors
         ProfessorDto savedProfessor1 = professorService.create(professor1);
@@ -203,5 +204,13 @@ public class DataInitializer implements CommandLineRunner {
         professorReviewService.create(savedProfessor3.getId(), professor3review1);
         professorReviewService.create(savedProfessor3.getId(), professor3review2);
         professorReviewService.create(savedProfessor3.getId(), professor3review3);
+
+
+        // Courses
+        CourseDto course1 = new CourseDto("Inferencia Estadística");
+        CourseDto course2 = new CourseDto("Programación Orientada a Objetos");
+
+        courseService.create(course1);
+        courseService.create(course2);
     }
 }

@@ -35,7 +35,6 @@ public class ProfessorMapper implements EntityDtoMapper<Professor, ProfessorDto>
         return Professor.builder()
                 .firstNames(professorDto.getFirstNames())
                 .lastNames(professorDto.getLastNames())
-
                 .build();
     }
 }
