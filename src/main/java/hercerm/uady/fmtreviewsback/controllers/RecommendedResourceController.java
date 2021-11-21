@@ -2,6 +2,7 @@ package hercerm.uady.fmtreviewsback.controllers;
 
 import hercerm.uady.fmtreviewsback.dtos.RecommendedResourceAggregatorDto;
 import hercerm.uady.fmtreviewsback.services.RecommendedResourceService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ public class RecommendedResourceController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Object createRecommendedResource(HttpServletRequest request,
                                             @PathVariable Long courseId,
                                             @RequestParam String resourceTypeName) throws IOException {

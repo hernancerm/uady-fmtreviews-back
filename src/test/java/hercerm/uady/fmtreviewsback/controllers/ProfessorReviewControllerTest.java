@@ -31,6 +31,9 @@ class ProfessorReviewControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private Gson gson;
+
     @MockBean
     private ProfessorReviewService professorReviewService;
 
@@ -103,7 +106,7 @@ class ProfessorReviewControllerTest {
         // exercise
         mockMvc.perform(post(ProfessorController.BASE_URL + "/1/reviews")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(new Gson().toJson(submittedProfessorReview)))
+                        .content(gson.toJson(submittedProfessorReview)))
 
                 // verify - data
                 .andExpect(status().isCreated())

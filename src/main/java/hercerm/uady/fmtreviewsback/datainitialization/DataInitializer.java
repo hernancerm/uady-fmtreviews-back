@@ -250,7 +250,7 @@ public class DataInitializer implements CommandLineRunner {
                 .build();
 
         RecommendedResourceVideoDto ieResourceVideo1 = RecommendedResourceVideoDto.builder()
-                .title("Qué son los intervalos de confianza?")
+                .title("¿Qué son los intervalos de confianza?")
                 .description(StringPlaceholders.LOREM_IPSUM_MEDIUM)
                 .build();
 
