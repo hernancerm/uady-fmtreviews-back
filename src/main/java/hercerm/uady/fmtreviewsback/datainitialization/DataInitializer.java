@@ -45,7 +45,7 @@ public class DataInitializer implements CommandLineRunner {
         ProfessorCharacteristicDto characteristic4 = new ProfessorCharacteristicDto(
                 ProfessorCharacteristic.TEACHES_MOST_CLASSES);
         ProfessorCharacteristicDto characteristic5 = new ProfessorCharacteristicDto(
-                ProfessorCharacteristic.Provides_USEFUL_RESOURCES);
+                ProfessorCharacteristic.PROVIDES_USEFUL_RESOURCES);
         ProfessorCharacteristicDto characteristic6 = new ProfessorCharacteristicDto(
                 ProfessorCharacteristic.TIMELINESS_REQUIRED);
 
