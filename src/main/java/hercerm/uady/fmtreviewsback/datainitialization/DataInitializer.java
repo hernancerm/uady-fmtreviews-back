@@ -172,9 +172,9 @@ public class DataInitializer implements CommandLineRunner {
                 .description(StringPlaceholders.LOREM_IPSUM_TINY)
                 .professorCharacteristics(List.of(savedCharacteristic2, savedCharacteristic3, savedCharacteristic6))
                 .studentSatisfactionGrades(List.of(
-                        new StudentSatisfactionParameterPointedDto(1.0, savedParameter1),
-                        new StudentSatisfactionParameterPointedDto(2.0, savedParameter2),
-                        new StudentSatisfactionParameterPointedDto(3.0, savedParameter3)
+                        new StudentSatisfactionParameterPointedDto(5.0, savedParameter1),
+                        new StudentSatisfactionParameterPointedDto(5.0, savedParameter2),
+                        new StudentSatisfactionParameterPointedDto(4.0, savedParameter3)
                 ))
                 .build();
 
@@ -182,9 +182,9 @@ public class DataInitializer implements CommandLineRunner {
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
                 .professorCharacteristics(List.of(savedCharacteristic1, savedCharacteristic2, savedCharacteristic4))
                 .studentSatisfactionGrades(List.of(
-                        new StudentSatisfactionParameterPointedDto(1.0, savedParameter1),
-                        new StudentSatisfactionParameterPointedDto(1.0, savedParameter2),
-                        new StudentSatisfactionParameterPointedDto(2.0, savedParameter3)
+                        new StudentSatisfactionParameterPointedDto(5.0, savedParameter1),
+                        new StudentSatisfactionParameterPointedDto(5.0, savedParameter2),
+                        new StudentSatisfactionParameterPointedDto(5.0, savedParameter3)
                 ))
                 .build();
 
@@ -192,9 +192,9 @@ public class DataInitializer implements CommandLineRunner {
                 .description(StringPlaceholders.LOREM_IPSUM_SHORT)
                 .professorCharacteristics(List.of(savedCharacteristic3, savedCharacteristic5, savedCharacteristic2))
                 .studentSatisfactionGrades(List.of(
-                        new StudentSatisfactionParameterPointedDto(2.0, savedParameter1),
-                        new StudentSatisfactionParameterPointedDto(2.0, savedParameter2),
-                        new StudentSatisfactionParameterPointedDto(3.0, savedParameter3)
+                        new StudentSatisfactionParameterPointedDto(4.0, savedParameter1),
+                        new StudentSatisfactionParameterPointedDto(5.0, savedParameter2),
+                        new StudentSatisfactionParameterPointedDto(5.0, savedParameter3)
                 ))
                 .build();
 
