@@ -2,6 +2,7 @@ package hercerm.uady.fmtreviewsback.datainitialization;
 
 import hercerm.uady.fmtreviewsback.dtos.*;
 import hercerm.uady.fmtreviewsback.entities.ProfessorCharacteristic;
+import hercerm.uady.fmtreviewsback.entities.RecommendedResourceType;
 import hercerm.uady.fmtreviewsback.entities.StudentSatisfactionParameter;
 import hercerm.uady.fmtreviewsback.services.*;
 import hercerm.uady.fmtreviewsback.utils.StringPlaceholders;
@@ -20,20 +21,33 @@ public class DataInitializer implements CommandLineRunner {
 
     private final CourseService courseService;
 
+    private final RecommendedResourceTypeService recommendedResourceTypeService;
+
     public DataInitializer(ProfessorService professorService,
                            ProfessorReviewService professorReviewService,
                            ProfessorCharacteristicService professorCharacteristicService,
                            StudentSatisfactionParameterService studentSatisfactionParameterService,
-                           CourseService courseService) {
+                           CourseService courseService,
+                           RecommendedResourceTypeService recommendedResourceTypeService) {
         this.professorService = professorService;
         this.professorReviewService = professorReviewService;
         this.professorCharacteristicService = professorCharacteristicService;
         this.studentSatisfactionParameterService = studentSatisfactionParameterService;
+        this.recommendedResourceTypeService = recommendedResourceTypeService;
         this.courseService = courseService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        // Course recommended resource types
+        RecommendedResourceTypeDto resourceType1 = new RecommendedResourceTypeDto(RecommendedResourceType.BOOK);
+        RecommendedResourceTypeDto resourceType2 = new RecommendedResourceTypeDto(RecommendedResourceType.VIDEO);
+        RecommendedResourceTypeDto resourceType3 = new RecommendedResourceTypeDto(RecommendedResourceType.WEBSITE);
+
+        RecommendedResourceTypeDto savedResourceType1 = recommendedResourceTypeService.create(resourceType1);
+        RecommendedResourceTypeDto savedResourceType2 = recommendedResourceTypeService.create(resourceType2);
+        RecommendedResourceTypeDto savedResourceType3 = recommendedResourceTypeService.create(resourceType3);
 
         // Professor characteristics
         ProfessorCharacteristicDto characteristic1 = new ProfessorCharacteristicDto(
