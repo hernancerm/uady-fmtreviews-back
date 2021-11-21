@@ -1,5 +1,6 @@
 package hercerm.uady.fmtreviewsback.datainitialization;
 
+import com.google.gson.Gson;
 import hercerm.uady.fmtreviewsback.dtos.*;
 import hercerm.uady.fmtreviewsback.entities.ProfessorCharacteristic;
 import hercerm.uady.fmtreviewsback.entities.RecommendedResourceType;
@@ -21,33 +22,37 @@ public class DataInitializer implements CommandLineRunner {
 
     private final CourseService courseService;
 
+    private final RecommendedResourceService recommendedResourceService;
     private final RecommendedResourceTypeService recommendedResourceTypeService;
+
+    private final Gson gson;
 
     public DataInitializer(ProfessorService professorService,
                            ProfessorReviewService professorReviewService,
                            ProfessorCharacteristicService professorCharacteristicService,
                            StudentSatisfactionParameterService studentSatisfactionParameterService,
+
                            CourseService courseService,
-                           RecommendedResourceTypeService recommendedResourceTypeService) {
+
+                           RecommendedResourceService recommendedResourceService,
+                           RecommendedResourceTypeService recommendedResourceTypeService,
+
+                           Gson gson) {
         this.professorService = professorService;
         this.professorReviewService = professorReviewService;
         this.professorCharacteristicService = professorCharacteristicService;
         this.studentSatisfactionParameterService = studentSatisfactionParameterService;
-        this.recommendedResourceTypeService = recommendedResourceTypeService;
+
         this.courseService = courseService;
+
+        this.recommendedResourceService = recommendedResourceService;
+        this.recommendedResourceTypeService = recommendedResourceTypeService;
+
+        this.gson = gson;
     }
 
     @Override
     public void run(String... args) throws Exception {
-
-        // Course recommended resource types
-        RecommendedResourceTypeDto resourceType1 = new RecommendedResourceTypeDto(RecommendedResourceType.BOOK);
-        RecommendedResourceTypeDto resourceType2 = new RecommendedResourceTypeDto(RecommendedResourceType.VIDEO);
-        RecommendedResourceTypeDto resourceType3 = new RecommendedResourceTypeDto(RecommendedResourceType.WEBSITE);
-
-        RecommendedResourceTypeDto savedResourceType1 = recommendedResourceTypeService.create(resourceType1);
-        RecommendedResourceTypeDto savedResourceType2 = recommendedResourceTypeService.create(resourceType2);
-        RecommendedResourceTypeDto savedResourceType3 = recommendedResourceTypeService.create(resourceType3);
 
         // Professor characteristics
         ProfessorCharacteristicDto characteristic1 = new ProfessorCharacteristicDto(
@@ -224,7 +229,58 @@ public class DataInitializer implements CommandLineRunner {
         CourseDto course1 = new CourseDto("Inferencia Estadística");
         CourseDto course2 = new CourseDto("Programación Orientada a Objetos");
 
-        courseService.create(course1);
-        courseService.create(course2);
+        CourseDto savedCourse1 = courseService.create(course1);
+        CourseDto savedCourse2 = courseService.create(course2);
+
+        // Course recommended resource types
+        RecommendedResourceTypeDto resourceType1 = new RecommendedResourceTypeDto(RecommendedResourceType.BOOK);
+        RecommendedResourceTypeDto resourceType2 = new RecommendedResourceTypeDto(RecommendedResourceType.VIDEO);
+        RecommendedResourceTypeDto resourceType3 = new RecommendedResourceTypeDto(RecommendedResourceType.WEBSITE);
+
+        RecommendedResourceTypeDto savedResourceType1 = recommendedResourceTypeService.create(resourceType1);
+        RecommendedResourceTypeDto savedResourceType2 = recommendedResourceTypeService.create(resourceType2);
+        RecommendedResourceTypeDto savedResourceType3 = recommendedResourceTypeService.create(resourceType3);
+
+        // Course recommended resources
+
+        // For "Inferencia estadística"
+        RecommendedResourceBookDto ieResourceBook1 = RecommendedResourceBookDto.builder()
+                .title("Inferencia Estadística Para Dummies")
+                .description(StringPlaceholders.LOREM_IPSUM_SHORT)
+                .build();
+
+        RecommendedResourceVideoDto ieResourceVideo1 = RecommendedResourceVideoDto.builder()
+                .title("Qué son los intervalos de confianza?")
+                .description(StringPlaceholders.LOREM_IPSUM_MEDIUM)
+                .build();
+
+        RecommendedResourceWebsiteDto ieResourceWebsite1 = RecommendedResourceWebsiteDto.builder()
+                .title("Fundamentos del curso")
+                .description("https://inferencia_estadistica.com")
+                .build();
+
+        recommendedResourceService.create(gson.toJson(ieResourceBook1), RecommendedResourceType.BOOK, savedCourse1.getId());
+        recommendedResourceService.create(gson.toJson(ieResourceVideo1), RecommendedResourceType.VIDEO, savedCourse1.getId());
+        recommendedResourceService.create(gson.toJson(ieResourceWebsite1), RecommendedResourceType.WEBSITE, savedCourse1.getId());
+
+        // For "Programación Orientada a Objetos"
+        RecommendedResourceBookDto pooResourceBook1 = RecommendedResourceBookDto.builder()
+                .title("POO Para Dummies")
+                .description(StringPlaceholders.LOREM_IPSUM_SHORT)
+                .build();
+
+        RecommendedResourceVideoDto pooResourceVideo1 = RecommendedResourceVideoDto.builder()
+                .title("Polimorfismo vs. Herencia")
+                .description(StringPlaceholders.LOREM_IPSUM_MEDIUM)
+                .build();
+
+        RecommendedResourceWebsiteDto pooResourceWebsite1 = RecommendedResourceWebsiteDto.builder()
+                .title("Fundamentos del curso")
+                .description("https://poo.com")
+                .build();
+
+        recommendedResourceService.create(gson.toJson(pooResourceBook1), RecommendedResourceType.BOOK, savedCourse2.getId());
+        recommendedResourceService.create(gson.toJson(pooResourceVideo1), RecommendedResourceType.VIDEO, savedCourse2.getId());
+        recommendedResourceService.create(gson.toJson(pooResourceWebsite1), RecommendedResourceType.WEBSITE, savedCourse2.getId());
     }
 }
