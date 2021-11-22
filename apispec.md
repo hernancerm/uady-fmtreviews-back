@@ -1,7 +1,5 @@
 # API Specification
 
-TODO: Actualizar diseño a impl presente (refactor de StudentSatisfactionParameters)
-
 <!-- TOC -->
 
 - [Endpoints](#endpoints)
@@ -12,7 +10,7 @@ TODO: Actualizar diseño a impl presente (refactor de StudentSatisfactionParamet
     - [Response](#response-1)
   - [GET /api/professors/{id}/profile-image](#get-apiprofessorsidprofile-image)
     - [Request parameters](#request-parameters-1)
-  - [Response](#response-2)
+    - [Response](#response-2)
   - [GET /api/professors/{id}/reviews](#get-apiprofessorsidreviews)
     - [Request parameters](#request-parameters-2)
     - [Response](#response-3)
@@ -29,6 +27,7 @@ TODO: Actualizar diseño a impl presente (refactor de StudentSatisfactionParamet
   - [ProfessorCharacteristicDto](#professorcharacteristicdto)
 - [Endpoints per increment](#endpoints-per-increment)
   - [Increment #1](#increment-1)
+  - [Increment #2](#increment-2)
 
 <!-- /TOC -->
 
@@ -74,7 +73,7 @@ Get the profile image of a professor.
 |---|---|---|---|
 |`id`|Id of the professor|path|number|
 
-### Response
+#### Response
 
 200 OK
 
@@ -258,4 +257,9 @@ Example:
 - `POST /api/professors/{id}/reviews`
 - `GET /api/professors/characteristics`
 
-TODO: Agregar endpoint de student-satisfaction-parameters
+### Increment #2
+
+- `GET /api/courses`
+- `GET /api/courses/recommended-resource-types`
+- `GET /api/courses/{courseId}/recommended-resources`
+- `POST /api/courses/{courseId}/recommended-resources`

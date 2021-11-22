@@ -22,7 +22,7 @@ public class ProfessorCharacteristic {
     public static final String REQUIRES_ENGLISH = "Requiere inglés para algunas tareas";
     public static final String GRADES_TRANSPARENTLY = "Calcula de forma transparente las calificaciones";
     public static final String TEACHES_MOST_CLASSES = "No se salta las clases";
-    public static final String Provides_USEFUL_RESOURCES = "Proporciona recursos útiles para el curso";
+    public static final String PROVIDES_USEFUL_RESOURCES = "Proporciona recursos útiles para el curso";
     public static final String TIMELINESS_REQUIRED = "Espera puntualidad por parte de los alumnos";
 
     @Id

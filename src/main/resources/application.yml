@@ -13,6 +13,17 @@ spring:
       enabled: true
       path: /console
 
+# Uncomment to show generated SQL by Hibernate:
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
+
 server:
   port: 8080
 
